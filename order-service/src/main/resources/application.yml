@@ -1,13 +1,13 @@
-# application.yml is the configuration file for the client-service application.
+# application.yml is the configuration file for the order-service application.
 # It defines various settings such as the application name, server port, Eureka client configuration,
 # and SpringDoc/Swagger UI paths for API documentation.
 server:
-  port: 8082
+  port: 8083
 spring:
   application:
-    name: client-service
+    name: order-service
   datasource:
-    url: jdbc:h2:mem:clientdb
+    url: jdbc:h2:mem:orderdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
