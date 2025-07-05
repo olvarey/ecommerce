@@ -4,10 +4,10 @@ import com.mreyes.ecommerce.dto.ProductResponse;
 import java.util.List;
 
 /**
- * IProduct is an interface that defines the contract for product-related operations. It provides
+ * ProductServiceImpl is an interface that defines the contract for product-related operations. It provides
  * methods to retrieve product data.
  */
-public interface IProduct {
+public interface ProductService {
 
   /**
    * Retrieves a list of all products.

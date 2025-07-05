@@ -4,17 +4,33 @@
 
 spring:
   application:
-    name: client-service # Specifies the name of the application.
+    name: client-service
+  datasource:
+    url: jdbc:h2:mem:clientdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
 server:
-  port: 8082 # Defines the port on which the server will run.
+  port: 8082
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka # URL of the Eureka server for service discovery.
-    fetch-registry: true # Enables fetching the registry from Eureka.
-    register-with-eureka: true # Registers this service with Eureka.
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
 springdoc:
   api-docs:
-    path: /v3/api-docs # Path to the OpenAPI documentation.
+    path: /v3/api-docs
   swagger-ui:
-    path: /swagger-ui.html # Path to the Swagger UI for API visualization.
+    path: /swagger-ui.html

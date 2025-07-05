@@ -4,7 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.mreyes.ecommerce.controller.ProductController;
-import com.mreyes.ecommerce.service.implementation.ProductService;
+import com.mreyes.ecommerce.service.implementation.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +20,7 @@ class ProductControllerTest {
   private MockMvc mockMvc;
 
   @MockitoBean
-  private ProductService productService;
+  private ProductServiceImpl productServiceImpl;
 
   @Test
   void getAllProducts_shouldReturnListOfProducts() throws Exception {

@@ -2,18 +2,19 @@ package com.mreyes.ecommerce.service.implementation;
 
 import com.mreyes.ecommerce.dto.ProductResponse;
 import com.mreyes.ecommerce.feign.ProductClient;
-import com.mreyes.ecommerce.service.IProduct;
+import com.mreyes.ecommerce.service.ProductService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * ProductService is a service implementation that provides methods to interact with product-related
- * data by delegating calls to the ProductClient. It implements the IProduct interface.
+ * ProductServiceImpl is a service implementation that provides methods to interact with
+ * product-related data by delegating calls to the ProductClient. It implements the
+ * ProductServiceImpl interface.
  */
 @Service
 @RequiredArgsConstructor
-public class ProductService implements IProduct {
+public class ProductServiceImpl implements ProductService {
 
   private final ProductClient productClient;
 

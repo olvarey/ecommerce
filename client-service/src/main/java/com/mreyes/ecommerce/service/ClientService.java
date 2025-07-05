@@ -4,7 +4,7 @@ import com.mreyes.ecommerce.dto.ClientRequest;
 import com.mreyes.ecommerce.dto.ClientResponse;
 import java.util.List;
 
-public interface IClient {
+public interface ClientService {
 
   ClientResponse save(ClientRequest clientRequest);
 
@@ -16,5 +16,5 @@ public interface IClient {
 
   void delete(Long id);
 
-
+  boolean existsByEmail(String email);
 }

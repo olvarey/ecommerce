@@ -2,7 +2,7 @@ package com.mreyes.ecommerce.controller;
 
 import com.mreyes.ecommerce.dto.ProductResponse;
 import com.mreyes.ecommerce.exception.ProductNotFoundException;
-import com.mreyes.ecommerce.service.implementation.ProductService;
+import com.mreyes.ecommerce.service.ProductService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,8 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
  * products or a specific product by ID.
  */
 @RestController
-@RequiredArgsConstructor
+@RequestMapping("/api/v1/products")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 @Slf4j
 public class ProductController {
 
@@ -33,7 +35,7 @@ public class ProductController {
    *
    * @return ResponseEntity containing a list of ProductResponse objects.
    */
-  @GetMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<ProductResponse>> getAllProducts() {
     List<ProductResponse> products = productService.getAllProducts();
     logger.info("Retrieved {} products", products != null ? products.size() : 0);
@@ -46,7 +48,7 @@ public class ProductController {
    * @param id The ID of the product to retrieve.
    * @return ResponseEntity containing the ProductResponse object for the specified ID.
    */
-  @GetMapping(value = "/products/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
     ProductResponse product = productService.getProductById(id);
     logger.info("Retrieved {} product with ID {}", product, id);

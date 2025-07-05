@@ -24,6 +24,7 @@ public class Client extends BaseEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id_client", nullable = false, unique = true)
   private Long id;
   @Column(name = "first_name", nullable = false, length = 150)
   private String firstName;
