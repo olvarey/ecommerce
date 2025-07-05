@@ -1,0 +1,20 @@
+# application.yml is the configuration file for the product-service application.
+# It defines various settings such as the application name, server port, Eureka client configuration,
+# and SpringDoc/Swagger UI paths for API documentation.
+
+spring:
+  application:
+    name: client-service # Specifies the name of the application.
+server:
+  port: 8082 # Defines the port on which the server will run.
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka # URL of the Eureka server for service discovery.
+    fetch-registry: true # Enables fetching the registry from Eureka.
+    register-with-eureka: true # Registers this service with Eureka.
+springdoc:
+  api-docs:
+    path: /v3/api-docs # Path to the OpenAPI documentation.
+  swagger-ui:
+    path: /swagger-ui.html # Path to the Swagger UI for API visualization.
