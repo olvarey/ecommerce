@@ -86,8 +86,9 @@ public class OrderServiceImpl implements OrderService {
         }
       }
 
-      return OrderResponse.builder().id(order.getId()).clientId(order.getClientId())
-          .status(order.getStatus().name()).clientResponse(client).build();
+      return OrderResponse.builder().createdAt(order.getCreatedAt()).updatedAt(order.getUpdatedAt())
+          .id(order.getId()).clientId(order.getClientId()).status(order.getStatus().name())
+          .clientResponse(client).build();
     }).toList();
   }
 

@@ -27,9 +27,9 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(ClientNotFoundException.class)
   public ResponseEntity<ApiError> handleClientNotFoundException(ClientNotFoundException exception,
       HttpServletRequest request) {
-    return new ResponseEntity<>(
-        new ApiError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), "Product not found",
-            exception.getMessage(), request.getRequestURI()), HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(new ApiError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),
+        "Client not found or there is something wrong with the service", exception.getMessage(),
+        request.getRequestURI()), HttpStatus.NOT_FOUND);
   }
 
   /**
