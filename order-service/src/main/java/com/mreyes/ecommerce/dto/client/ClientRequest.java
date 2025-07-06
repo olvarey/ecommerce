@@ -3,9 +3,9 @@ package com.mreyes.ecommerce.dto.client;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientRequest implements Serializable {

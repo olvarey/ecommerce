@@ -1,13 +1,18 @@
 package com.mreyes.ecommerce.dto.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mreyes.ecommerce.dto.client.ClientResponse;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import lombok.Value;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * DTO for {@link com.mreyes.ecommerce.model.Order}
- */
-@Value
+@Getter
+@Setter
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderResponse implements Serializable {
 
   LocalDateTime createdAt;
@@ -15,4 +20,6 @@ public class OrderResponse implements Serializable {
   Long id;
   Long clientId;
   String status;
+  @JsonProperty("clientInfo")
+  ClientResponse clientResponse;
 }

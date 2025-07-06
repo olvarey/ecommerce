@@ -12,6 +12,8 @@ public interface OrderService {
 
   List<OrderResponse> findAll();
 
+  List<OrderResponse> findAllWithClient();
+
   OrderResponse update(Long id, OrderRequest orderRequest);
 
   void delete(Long id);

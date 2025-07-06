@@ -1,8 +1,6 @@
 package com.mreyes.ecommerce.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,7 +10,6 @@ import lombok.Data;
  */
 @Data
 @Builder
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductResponse {
 
@@ -22,6 +19,5 @@ public class ProductResponse {
   private Double price;
   private String category;
   private String image;
-  @JsonProperty(namespace = "rating")
   private RatingResponse rating;
 }
