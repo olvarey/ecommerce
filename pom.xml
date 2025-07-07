@@ -21,6 +21,7 @@
     <module>product-service</module>
     <module>client-service</module>
     <module>order-service</module>
+    <module>detail-order-service</module>
   </modules>
   <properties>
     <java.version>17</java.version>
