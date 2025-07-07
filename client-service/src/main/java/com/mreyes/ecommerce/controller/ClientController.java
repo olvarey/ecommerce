@@ -59,10 +59,4 @@ public class ClientController {
     return ResponseEntity.noContent().build();
   }
 
-  // Helper method to check for duplicate email before creating a client
-  private void ensureEmailNotDuplicated(String email) {
-    if (clientService.existsByEmail(email)) {
-      throw new IllegalArgumentException("Email already exists");
-    }
-  }
 }
