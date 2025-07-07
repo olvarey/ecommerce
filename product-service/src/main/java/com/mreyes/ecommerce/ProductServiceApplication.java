@@ -10,9 +10,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * Spring Boot application that enables service discovery and Feign clients for communication with
  * other microservices.
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.mreyes.ecommerce")
+@EnableFeignClients(basePackages = "com.mreyes.ecommerce")
 @EnableDiscoveryClient
-@EnableFeignClients
 public class ProductServiceApplication {
 
   /**

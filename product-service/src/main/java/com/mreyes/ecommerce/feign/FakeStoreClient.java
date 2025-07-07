@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
- * ProductClient is a Feign client interface used to interact with the product-service API. It
+ * FakeStoreClient is a Feign client interface used to interact with the product-service API. It
  * provides methods to fetch product details from the external service.
  */
-@FeignClient(name = "product-service", url = "https://fakestoreapi.com")
-public interface ProductClient {
+@FeignClient(name = "fake-store-service", url = "https://fakestoreapi.com")
+public interface FakeStoreClient {
 
   /**
    * Fetches a list of all products from the product-service API.

@@ -1,4 +1,4 @@
-package com.mreyes.ecommerce.dto;
+package com.mreyes.ecommerce.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;

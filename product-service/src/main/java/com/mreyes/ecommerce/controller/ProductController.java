@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ public class ProductController {
    *
    * @return ResponseEntity containing a list of ProductResponse objects.
    */
-  @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(consumes = "application/json", produces = "application/json")
   public ResponseEntity<List<ProductResponse>> getAllProducts() {
     List<ProductResponse> products = productService.getAllProducts();
     logger.info("Retrieved {} products", products != null ? products.size() : 0);
@@ -48,7 +47,7 @@ public class ProductController {
    * @param id The ID of the product to retrieve.
    * @return ResponseEntity containing the ProductResponse object for the specified ID.
    */
-  @GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
   public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
     ProductResponse product = productService.getProductById(id);
     logger.info("Retrieved {} product with ID {}", product, id);
