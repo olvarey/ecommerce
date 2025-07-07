@@ -31,6 +31,8 @@ Each service runs independently and communicates using **OpenFeign** and JWT-bas
 - Lombok
 - H2 in-memory database
 - IntelliJ IDEA
+- Postman for API testing
+- Mapstruct for object mapping
 
 ---
 
