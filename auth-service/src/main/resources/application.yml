@@ -1,13 +1,14 @@
-# application.yml is the configuration file for the order-service application.
+
+# application.yml is the configuration file for the auth-service application.
 # It defines various settings such as the application name, server port, Eureka client configuration,
 # and SpringDoc/Swagger UI paths for API documentation.
 server:
-  port: 8084
+  port: 8081
 spring:
   application:
-    name: order-service
+    name: auth-service
   datasource:
-    url: jdbc:h2:mem:orderdb
+    url: jdbc:h2:mem:authdb
     driver-class-name: org.h2.Driver
     username: sa
     password:

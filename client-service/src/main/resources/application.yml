@@ -2,7 +2,7 @@
 # It defines various settings such as the application name, server port, Eureka client configuration,
 # and SpringDoc/Swagger UI paths for API documentation.
 server:
-  port: 8082
+  port: 8083
 spring:
   application:
     name: client-service
