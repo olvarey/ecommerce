@@ -78,6 +78,15 @@ GET    /api/v1/products
 GET    /api/v1/products/{id}
 ```
 
+### payment-service
+```http
+GET    /api/v1/payments
+GET    /api/v1/payments/{id}
+POST   /api/v1/payments
+PUT    /api/v1/payments/{id}
+DELETE /api/v1/payments/{id}
+```
+
 ---
 
 ## 🛠 How to Open & Run in IntelliJ IDEA
@@ -100,31 +109,35 @@ GET    /api/v1/products/{id}
 Run the services in this exact order:
 
 1. **Eureka Server**  
-   `com.mreyes.ecommerce.eurekaserver.EurekaServerApplication`
+   `com.mreyes.ecommerce.EurekaServerApplication`
 
 2. **Auth Service**  
-   `com.mreyes.ecommerce.authservice.AuthServiceApplication`
+   `com.mreyes.ecommerce.AuthServiceApplication`
 
 3. **Product Service**  
-   `com.mreyes.ecommerce.productservice.ProductServiceApplication`
+   `com.mreyes.ecommerce.ProductServiceApplication`
 
 4. **Client Service**  
-   `com.mreyes.ecommerce.clientservice.ClientServiceApplication`
+   `com.mreyes.ecommerce.ClientServiceApplication`
 
 5. **Order Service**  
-   `com.mreyes.ecommerce.orderservice.OrderServiceApplication`
+   `com.mreyes.ecommerce.OrderServiceApplication`
 
 6. **Detail Service**  
-   `com.mreyes.ecommerce.detailservice.DetailServiceApplication`
+   `com.mreyes.ecommerce.DetailServiceApplication`
 
-👉 Each service can be started by right-clicking the main class in IntelliJ and selecting `Run`.
+👉 Each service can be started by right-clicking the main class in IntelliJ and selecting `Run`. You can also use the terminal to run each service with the following command:
+
+```bash
+mvn spring-boot:run
+```
 
 ---
 
 ## 🔐 JWT Authentication Flow
 
 ### 1. Register
-
+You can register a new user by calling the registration endpoint:
 ```http
 POST /auth/register
 Content-Type: application/json
@@ -136,7 +149,7 @@ Content-Type: application/json
 ```
 
 ### 2. Login
-
+The token is obtained by logging in with the registered user credentials:
 ```http
 POST /auth/login
 Content-Type: application/json
@@ -157,7 +170,7 @@ You will receive a JWT token in response:
 
 ### 3. Call secured endpoints
 
-Pass the token in the `Authorization` header:
+Pass the token in the `Authorization` header in postman requests to access protected endpoints, You can set the token in the collection variables in Postman for easy access.
 
 ```http
 Authorization: Bearer <token>
