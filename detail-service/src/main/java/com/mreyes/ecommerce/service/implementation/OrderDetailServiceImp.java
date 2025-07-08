@@ -5,17 +5,16 @@ import com.mreyes.ecommerce.dto.OrderDetailResponse;
 import com.mreyes.ecommerce.dto.order.OrderResponse;
 import com.mreyes.ecommerce.dto.product.ProductResponse;
 import com.mreyes.ecommerce.exception.order.OrderDetailNotFoundException;
+import com.mreyes.ecommerce.exception.product.ProductNotFoundException;
 import com.mreyes.ecommerce.feign.OrderService;
 import com.mreyes.ecommerce.feign.ProductService;
 import com.mreyes.ecommerce.mapper.OrderDetailMapper;
-import com.mreyes.ecommerce.model.OrderDetail;
 import com.mreyes.ecommerce.repository.OrderDetailRepository;
 import com.mreyes.ecommerce.service.OrderDetailService;
+import feign.FeignException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,26 +22,26 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class OrderDetailServiceImp implements OrderDetailService {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(OrderDetailServiceImp.class);
-
   private final OrderDetailRepository orderDetailRepository;
   private final OrderDetailMapper orderDetailMapper;
   private final OrderService orderService;
   private final ProductService productService;
 
   @Override
-  public OrderDetailResponse save(OrderDetailRequest orderDetailRequest) {
-    OrderResponse orderDetailResponse = orderService.getOrderById(orderDetailRequest.getOrderId());
-    ProductResponse productResponse = productService.getProductById(
-        orderDetailRequest.getProductId());
-    OrderDetail orderDetail = orderDetailMapper.toEntity(orderDetailRequest);
-    orderDetail.setPrice(productResponse.getPrice());
-    OrderDetailResponse orderDetailResponseSaved = orderDetailMapper.toDto(
-        orderDetailRepository.save(orderDetail));
-    orderDetailResponseSaved.setOrder(orderDetailResponse);
-    orderDetailResponseSaved.setProduct(productResponse);
-    return orderDetailResponseSaved;
+  public OrderDetailResponse save(OrderDetailRequest request) {
+    var order = orderExists(request.getOrderId());
+    var product = productExists(request.getProductId());
+
+    var entity = orderDetailMapper.toEntity(request);
+    entity.setPrice(product.getPrice());
+
+    var dto = orderDetailMapper.toDto(orderDetailRepository.save(entity));
+    dto.setOrder(order);
+    dto.setProduct(product);
+
+    return dto;
   }
+
 
   @Override
   public OrderDetailResponse findById(Long id) {
@@ -56,18 +55,44 @@ public class OrderDetailServiceImp implements OrderDetailService {
   }
 
   @Override
-  public OrderDetailResponse update(Long id, OrderDetailRequest orderDetailRequest) {
-    OrderDetail selectedOrderDetail = orderDetailRepository.findById(id)
+  public OrderDetailResponse update(Long id, OrderDetailRequest request) {
+    var order = orderExists(request.getOrderId());
+    var product = productExists(request.getProductId());
+
+    var existing = orderDetailRepository.findById(id)
         .orElseThrow(() -> new OrderDetailNotFoundException(id));
-    OrderDetail orderDetailUpdated = orderDetailMapper.update(orderDetailRequest,
-        selectedOrderDetail);
-    return orderDetailMapper.toDto(orderDetailRepository.save(orderDetailUpdated));
+
+    var updated = orderDetailMapper.update(request, existing);
+    updated.setPrice(product.getPrice());
+
+    var dto = orderDetailMapper.toDto(orderDetailRepository.save(updated));
+    dto.setOrder(order);
+    dto.setProduct(product);
+
+    return dto;
   }
+
 
   @Override
   public void delete(Long id) {
-    OrderDetail orderDetail = orderDetailRepository.findById(id)
+    var orderDetail = orderDetailRepository.findById(id)
         .orElseThrow(() -> new OrderDetailNotFoundException(id));
     orderDetailRepository.delete(orderDetail);
+  }
+
+  public OrderResponse orderExists(Long orderId) {
+    try {
+      return orderService.getOrderById(orderId);
+    } catch (FeignException e) {
+      throw new OrderDetailNotFoundException(orderId);
+    }
+  }
+
+  public ProductResponse productExists(Long productId) {
+    try {
+      return productService.getProductById(productId);
+    } catch (FeignException e) {
+      throw new ProductNotFoundException(productId);
+    }
   }
 }
