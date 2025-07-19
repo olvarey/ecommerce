@@ -221,3 +221,26 @@ client-service/src/main/resources/data.sql
 This facilitates testing and demo usage.
 
 ---
+## 🐳 Running with Docker Compose
+
+You can start every microservice together using the provided `docker-compose.yml`.
+This configuration builds each module's image with Maven and launches them on
+standard ports.
+
+1. (Optional) package all services:
+   ```bash
+   mvn -DskipTests package
+   ```
+2. Start the stack:
+   ```bash
+   docker compose up --build
+   ```
+   The services will be available on:
+   - Eureka Server: <http://localhost:8761>
+   - Auth Service: <http://localhost:8081>
+   - Product Service: <http://localhost:8082>
+   - Client Service: <http://localhost:8083>
+   - Order Service: <http://localhost:8084>
+   - Detail Service: <http://localhost:8085>
+   - Payment Service: <http://localhost:8086>
+

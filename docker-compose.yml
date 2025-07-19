@@ -1,0 +1,115 @@
+version: '3.8'
+services:
+  eureka-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: eureka-server
+        PORT: 8761
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: auth-service
+        PORT: 8081
+    container_name: auth-service
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+    ports:
+      - "8081:8081"
+
+  product-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: product-service
+        PORT: 8082
+    container_name: product-service
+    depends_on:
+      - eureka-server
+      - auth-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+    ports:
+      - "8082:8082"
+
+  client-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: client-service
+        PORT: 8083
+    container_name: client-service
+    depends_on:
+      - eureka-server
+      - auth-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+    ports:
+      - "8083:8083"
+
+  order-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: order-service
+        PORT: 8084
+    container_name: order-service
+    depends_on:
+      - eureka-server
+      - auth-service
+      - client-service
+      - product-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+    ports:
+      - "8084:8084"
+
+  detail-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: detail-service
+        PORT: 8085
+    container_name: detail-service
+    depends_on:
+      - eureka-server
+      - auth-service
+      - order-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+    ports:
+      - "8085:8085"
+
+  payment-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: payment-service
+        PORT: 8086
+    container_name: payment-service
+    depends_on:
+      - eureka-server
+      - auth-service
+      - order-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka
+    ports:
+      - "8086:8086"
+
+networks:
+  default:
+    driver: bridge
